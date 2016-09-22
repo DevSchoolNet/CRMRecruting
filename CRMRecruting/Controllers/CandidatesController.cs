@@ -25,7 +25,6 @@ namespace CRMRecruting.Controllers
         }
 
 
-
         // GET: Candidates/Details/5
 
         public ActionResult Details(int? id)
