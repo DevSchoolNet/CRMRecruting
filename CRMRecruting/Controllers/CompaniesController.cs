@@ -9,7 +9,6 @@ using System.Web.Mvc;
 using CRMRecruting.Models;
 
 
-
 namespace CRMRecruting.Controllers
 {
     public class CompaniesController : Controller
