@@ -12,6 +12,7 @@ using System.IO;
 
 namespace CRMRecruting.Controllers
 {
+
     public class CandidatesController : Controller
     {
         private Entities1 db = new Entities1();
