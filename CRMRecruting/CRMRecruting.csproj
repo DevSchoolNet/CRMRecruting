@@ -361,6 +361,7 @@
     <Content Include="CandidatesDataSet.xss">
       <DependentUpon>CandidatesDataSet.xsd</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\CRMRecruting.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
