@@ -1,0 +1,660 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="C__MigrationHistory">
+    <Key>
+      <PropertyRef Name="MigrationId" />
+      <PropertyRef Name="ContextKey" />
+    </Key>
+    <Property Name="MigrationId" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ContextKey" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+    <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Ability">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="CVXAbilities" Relationship="Self.FK_CVXAbility_Ability" FromRole="Ability" ToRole="CVXAbility" />
+  </EntityType>
+  <EntityType Name="AspNetRole">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="AspNetUsers" Relationship="Self.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
+  </EntityType>
+  <EntityType Name="AspNetUserClaim">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
+  </EntityType>
+  <EntityType Name="AspNetUserLogin">
+    <Key>
+      <PropertyRef Name="LoginProvider" />
+      <PropertyRef Name="ProviderKey" />
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="LoginProvider" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ProviderKey" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
+  </EntityType>
+  <EntityType Name="AspNetUser">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+    <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+    <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+    <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+    <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
+    <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+    <NavigationProperty Name="Companies" Relationship="Self.FK_Company_AspNetUsers" FromRole="AspNetUsers" ToRole="Company" />
+    <NavigationProperty Name="Contacts" Relationship="Self.FK_Contact_AspNetUsers" FromRole="AspNetUsers" ToRole="Contact" />
+    <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+  </EntityType>
+  <EntityType Name="Bill">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Price" Type="Int32" />
+    <Property Name="Serial" Type="Int32" />
+    <Property Name="Number" Type="Int32" />
+    <Property Name="Date" Type="DateTime" Precision="0" />
+    <Property Name="TVA" Type="Int32" />
+    <NavigationProperty Name="CandidateBill" Relationship="Self.FK_CandidateBill_Bill" FromRole="Bill" ToRole="CandidateBill" />
+    <NavigationProperty Name="CompanyBill" Relationship="Self.FK_CompanyBill_Bill" FromRole="Bill" ToRole="CompanyBill" />
+  </EntityType>
+  <EntityType Name="Candidate">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="University" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PersonalStatement" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ContactId" Type="Int32" />
+    <Property Name="BillId" Type="Int32" />
+    <NavigationProperty Name="CandidateBill" Relationship="Self.FK_Candidate_CandidateBill" FromRole="Candidate" ToRole="CandidateBill" />
+    <NavigationProperty Name="Contact" Relationship="Self.FK_Candidate_Contact" FromRole="Candidate" ToRole="Contact" />
+    <NavigationProperty Name="CVs" Relationship="Self.FK_CV_Candidate" FromRole="Candidate" ToRole="CV" />
+    <NavigationProperty Name="Employees" Relationship="Self.FK_Employee_Candidate" FromRole="Candidate" ToRole="Employee" />
+    <NavigationProperty Name="Employees1" Relationship="Self.FK_Employee_Candidate1" FromRole="Candidate" ToRole="Employee" />
+  </EntityType>
+  <EntityType Name="CandidateBill">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="CandidateId" Type="Int32" />
+    <NavigationProperty Name="Bill" Relationship="Self.FK_CandidateBill_Bill" FromRole="CandidateBill" ToRole="Bill" />
+    <NavigationProperty Name="Candidates" Relationship="Self.FK_Candidate_CandidateBill" FromRole="CandidateBill" ToRole="Candidate" />
+  </EntityType>
+  <EntityType Name="Certificate">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="CVXCertificates" Relationship="Self.FK_CVXCertificate_Certificate" FromRole="Certificate" ToRole="CVXCertificate" />
+  </EntityType>
+  <EntityType Name="Company">
+    <Key>
+      <PropertyRef Name="CompanyId" />
+    </Key>
+    <Property Name="CompanyId" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Adress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Cui" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NumberOfEmployees" Type="Int32" />
+    <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ActivityDomain" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="BillId" Type="Int32" />
+    <NavigationProperty Name="AspNetUser" Relationship="Self.FK_Company_AspNetUsers" FromRole="Company" ToRole="AspNetUsers" />
+    <NavigationProperty Name="CompanyBill" Relationship="Self.FK_Company_CompanyBill" FromRole="Company" ToRole="CompanyBill" />
+    <NavigationProperty Name="Jobs" Relationship="Self.FK_Job_Company" FromRole="Company" ToRole="Job" />
+  </EntityType>
+  <EntityType Name="CompanyBill">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="CompanyId" Type="Int32" />
+    <NavigationProperty Name="Bill" Relationship="Self.FK_CompanyBill_Bill" FromRole="CompanyBill" ToRole="Bill" />
+    <NavigationProperty Name="Companies" Relationship="Self.FK_Company_CompanyBill" FromRole="CompanyBill" ToRole="Company" />
+  </EntityType>
+  <EntityType Name="Contact">
+    <Key>
+      <PropertyRef Name="ContactId" />
+    </Key>
+    <Property Name="ContactId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUser" Relationship="Self.FK_Contact_AspNetUsers" FromRole="Contact" ToRole="AspNetUsers" />
+    <NavigationProperty Name="Candidates" Relationship="Self.FK_Candidate_Contact" FromRole="Contact" ToRole="Candidate" />
+  </EntityType>
+  <EntityType Name="CV">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="CandidateId" Type="Int32" />
+    <NavigationProperty Name="Candidate" Relationship="Self.FK_CV_Candidate" FromRole="CV" ToRole="Candidate" />
+    <NavigationProperty Name="CVXAbilities" Relationship="Self.FK_CVXAbility_CV" FromRole="CV" ToRole="CVXAbility" />
+    <NavigationProperty Name="CVXCertificates" Relationship="Self.FK_CVXCertificate_CV" FromRole="CV" ToRole="CVXCertificate" />
+    <NavigationProperty Name="CVXExperiences" Relationship="Self.FK_CVXExperience_CV" FromRole="CV" ToRole="CVXExperience" />
+    <NavigationProperty Name="CVXTrainings" Relationship="Self.FK_CVXTraining_CV" FromRole="CV" ToRole="CVXTraining" />
+  </EntityType>
+  <EntityType Name="CVXAbility">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="CvId" Type="Int32" />
+    <Property Name="AbilityId" Type="Int32" />
+    <Property Name="Grade" Type="Int32" />
+    <NavigationProperty Name="Ability" Relationship="Self.FK_CVXAbility_Ability" FromRole="CVXAbility" ToRole="Ability" />
+    <NavigationProperty Name="CV" Relationship="Self.FK_CVXAbility_CV" FromRole="CVXAbility" ToRole="CV" />
+  </EntityType>
+  <EntityType Name="CVXCertificate">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="CvId" Type="Int32" />
+    <Property Name="CertificateId" Type="Int32" />
+    <NavigationProperty Name="Certificate" Relationship="Self.FK_CVXCertificate_Certificate" FromRole="CVXCertificate" ToRole="Certificate" />
+    <NavigationProperty Name="CV" Relationship="Self.FK_CVXCertificate_CV" FromRole="CVXCertificate" ToRole="CV" />
+  </EntityType>
+  <EntityType Name="CVXTraining">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="CvId" Type="Int32" />
+    <Property Name="TrainingId" Type="Int32" />
+    <NavigationProperty Name="CV" Relationship="Self.FK_CVXTraining_CV" FromRole="CVXTraining" ToRole="CV" />
+    <NavigationProperty Name="Training" Relationship="Self.FK_CVXTraining_Training" FromRole="CVXTraining" ToRole="Training" />
+  </EntityType>
+  <EntityType Name="Employee">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="JobId" Type="Int32" />
+    <Property Name="CandidateId" Type="Int32" />
+    <NavigationProperty Name="Candidate" Relationship="Self.FK_Employee_Candidate" FromRole="Employee" ToRole="Candidate" />
+    <NavigationProperty Name="Candidate1" Relationship="Self.FK_Employee_Candidate1" FromRole="Employee" ToRole="Candidate" />
+    <NavigationProperty Name="Job" Relationship="Self.FK_Employee_Job" FromRole="Employee" ToRole="Job" />
+  </EntityType>
+  <EntityType Name="Experience">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Company" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Role" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Domain" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Years" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="CVXExperiences" Relationship="Self.FK_CVXExperience_Experience" FromRole="Experience" ToRole="CVXExperience" />
+  </EntityType>
+  <EntityType Name="Job">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="CompanyId" Type="Int32" />
+    <Property Name="TypeOfJob" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="LevelJob" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="AvailablePosts" Type="Int32" />
+    <Property Name="Requirements" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="Responsabilities" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="MoreInformation" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Company" Relationship="Self.FK_Job_Company" FromRole="Job" ToRole="Company" />
+    <NavigationProperty Name="Employees" Relationship="Self.FK_Employee_Job" FromRole="Job" ToRole="Employee" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Training">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="CVXTrainings" Relationship="Self.FK_CVXTraining_Training" FromRole="Training" ToRole="CVXTraining" />
+  </EntityType>
+  <EntityType Name="CVXExperience">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="CvId" />
+      <PropertyRef Name="ExperienceId" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="CvId" Type="Int32" Nullable="false" />
+    <Property Name="ExperienceId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="CV" Relationship="Self.FK_CVXExperience_CV" FromRole="CVXExperience" ToRole="CV" />
+    <NavigationProperty Name="Experience" Relationship="Self.FK_CVXExperience_Experience" FromRole="CVXExperience" ToRole="Experience" />
+  </EntityType>
+  <Association Name="FK_CVXAbility_Ability">
+    <End Role="Ability" Type="Self.Ability" Multiplicity="0..1" />
+    <End Role="CVXAbility" Type="Self.CVXAbility" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ability">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CVXAbility">
+        <PropertyRef Name="AbilityId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserClaims" Type="Self.AspNetUserClaim" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserClaims">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserLogins" Type="Self.AspNetUserLogin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserLogins">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Company_AspNetUsers">
+    <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="0..1" />
+    <End Role="Company" Type="Self.Company" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Company">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Contact_AspNetUsers">
+    <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="0..1" />
+    <End Role="Contact" Type="Self.Contact" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Contact">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CandidateBill_Bill">
+    <End Role="Bill" Type="Self.Bill" Multiplicity="1" />
+    <End Role="CandidateBill" Type="Self.CandidateBill" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Bill">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CandidateBill">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CompanyBill_Bill">
+    <End Role="Bill" Type="Self.Bill" Multiplicity="1" />
+    <End Role="CompanyBill" Type="Self.CompanyBill" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Bill">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CompanyBill">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Candidate_CandidateBill">
+    <End Role="CandidateBill" Type="Self.CandidateBill" Multiplicity="0..1" />
+    <End Role="Candidate" Type="Self.Candidate" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CandidateBill">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Candidate">
+        <PropertyRef Name="BillId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Candidate_Contact">
+    <End Role="Contact" Type="Self.Contact" Multiplicity="0..1" />
+    <End Role="Candidate" Type="Self.Candidate" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Contact">
+        <PropertyRef Name="ContactId" />
+      </Principal>
+      <Dependent Role="Candidate">
+        <PropertyRef Name="ContactId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CV_Candidate">
+    <End Role="Candidate" Type="Self.Candidate" Multiplicity="0..1" />
+    <End Role="CV" Type="Self.CV" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Candidate">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CV">
+        <PropertyRef Name="CandidateId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Employee_Candidate">
+    <End Role="Candidate" Type="Self.Candidate" Multiplicity="0..1" />
+    <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Candidate">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Employee">
+        <PropertyRef Name="CandidateId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Employee_Candidate1">
+    <End Role="Candidate" Type="Self.Candidate" Multiplicity="0..1" />
+    <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Candidate">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Employee">
+        <PropertyRef Name="CandidateId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CVXCertificate_Certificate">
+    <End Role="Certificate" Type="Self.Certificate" Multiplicity="0..1" />
+    <End Role="CVXCertificate" Type="Self.CVXCertificate" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Certificate">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CVXCertificate">
+        <PropertyRef Name="CvId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Company_CompanyBill">
+    <End Role="CompanyBill" Type="Self.CompanyBill" Multiplicity="0..1" />
+    <End Role="Company" Type="Self.Company" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CompanyBill">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Company">
+        <PropertyRef Name="BillId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Job_Company">
+    <End Role="Company" Type="Self.Company" Multiplicity="0..1" />
+    <End Role="Job" Type="Self.Job" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Company">
+        <PropertyRef Name="CompanyId" />
+      </Principal>
+      <Dependent Role="Job">
+        <PropertyRef Name="CompanyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CVXAbility_CV">
+    <End Role="CV" Type="Self.CV" Multiplicity="0..1" />
+    <End Role="CVXAbility" Type="Self.CVXAbility" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CV">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CVXAbility">
+        <PropertyRef Name="CvId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CVXCertificate_CV">
+    <End Role="CV" Type="Self.CV" Multiplicity="0..1" />
+    <End Role="CVXCertificate" Type="Self.CVXCertificate" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CV">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CVXCertificate">
+        <PropertyRef Name="CvId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CVXExperience_CV">
+    <End Role="CV" Type="Self.CV" Multiplicity="1" />
+    <End Role="CVXExperience" Type="Self.CVXExperience" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CV">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CVXExperience">
+        <PropertyRef Name="CvId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CVXTraining_CV">
+    <End Role="CV" Type="Self.CV" Multiplicity="0..1" />
+    <End Role="CVXTraining" Type="Self.CVXTraining" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CV">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CVXTraining">
+        <PropertyRef Name="CvId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CVXTraining_Training">
+    <End Role="Training" Type="Self.Training" Multiplicity="0..1" />
+    <End Role="CVXTraining" Type="Self.CVXTraining" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Training">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CVXTraining">
+        <PropertyRef Name="TrainingId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Employee_Job">
+    <End Role="Job" Type="Self.Job" Multiplicity="0..1" />
+    <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Job">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Employee">
+        <PropertyRef Name="JobId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CVXExperience_Experience">
+    <End Role="Experience" Type="Self.Experience" Multiplicity="1" />
+    <End Role="CVXExperience" Type="Self.CVXExperience" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Experience">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CVXExperience">
+        <PropertyRef Name="ExperienceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AspNetUserRoles">
+    <End Role="AspNetRoles" Type="Self.AspNetRole" Multiplicity="*" />
+    <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
+  </Association>
+  <EntityContainer Name="Entities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
+    <EntitySet Name="Abilities" EntityType="Self.Ability" />
+    <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRole" />
+    <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaim" />
+    <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogin" />
+    <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
+    <EntitySet Name="Bills" EntityType="Self.Bill" />
+    <EntitySet Name="Candidates" EntityType="Self.Candidate" />
+    <EntitySet Name="CandidateBills" EntityType="Self.CandidateBill" />
+    <EntitySet Name="Certificates" EntityType="Self.Certificate" />
+    <EntitySet Name="Companies" EntityType="Self.Company" />
+    <EntitySet Name="CompanyBills" EntityType="Self.CompanyBill" />
+    <EntitySet Name="Contacts" EntityType="Self.Contact" />
+    <EntitySet Name="CVs" EntityType="Self.CV" />
+    <EntitySet Name="CVXAbilities" EntityType="Self.CVXAbility" />
+    <EntitySet Name="CVXCertificates" EntityType="Self.CVXCertificate" />
+    <EntitySet Name="CVXTrainings" EntityType="Self.CVXTraining" />
+    <EntitySet Name="Employees" EntityType="Self.Employee" />
+    <EntitySet Name="Experiences" EntityType="Self.Experience" />
+    <EntitySet Name="Jobs" EntityType="Self.Job" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <EntitySet Name="Trainings" EntityType="Self.Training" />
+    <EntitySet Name="CVXExperiences" EntityType="Self.CVXExperience" />
+    <AssociationSet Name="FK_CVXAbility_Ability" Association="Self.FK_CVXAbility_Ability">
+      <End Role="Ability" EntitySet="Abilities" />
+      <End Role="CVXAbility" EntitySet="CVXAbilities" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Company_AspNetUsers" Association="Self.FK_Company_AspNetUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="Company" EntitySet="Companies" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Contact_AspNetUsers" Association="Self.FK_Contact_AspNetUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="Contact" EntitySet="Contacts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CandidateBill_Bill" Association="Self.FK_CandidateBill_Bill">
+      <End Role="Bill" EntitySet="Bills" />
+      <End Role="CandidateBill" EntitySet="CandidateBills" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CompanyBill_Bill" Association="Self.FK_CompanyBill_Bill">
+      <End Role="Bill" EntitySet="Bills" />
+      <End Role="CompanyBill" EntitySet="CompanyBills" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Candidate_CandidateBill" Association="Self.FK_Candidate_CandidateBill">
+      <End Role="CandidateBill" EntitySet="CandidateBills" />
+      <End Role="Candidate" EntitySet="Candidates" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Candidate_Contact" Association="Self.FK_Candidate_Contact">
+      <End Role="Contact" EntitySet="Contacts" />
+      <End Role="Candidate" EntitySet="Candidates" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CV_Candidate" Association="Self.FK_CV_Candidate">
+      <End Role="Candidate" EntitySet="Candidates" />
+      <End Role="CV" EntitySet="CVs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Employee_Candidate" Association="Self.FK_Employee_Candidate">
+      <End Role="Candidate" EntitySet="Candidates" />
+      <End Role="Employee" EntitySet="Employees" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Employee_Candidate1" Association="Self.FK_Employee_Candidate1">
+      <End Role="Candidate" EntitySet="Candidates" />
+      <End Role="Employee" EntitySet="Employees" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CVXCertificate_Certificate" Association="Self.FK_CVXCertificate_Certificate">
+      <End Role="Certificate" EntitySet="Certificates" />
+      <End Role="CVXCertificate" EntitySet="CVXCertificates" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Company_CompanyBill" Association="Self.FK_Company_CompanyBill">
+      <End Role="CompanyBill" EntitySet="CompanyBills" />
+      <End Role="Company" EntitySet="Companies" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Job_Company" Association="Self.FK_Job_Company">
+      <End Role="Company" EntitySet="Companies" />
+      <End Role="Job" EntitySet="Jobs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CVXAbility_CV" Association="Self.FK_CVXAbility_CV">
+      <End Role="CV" EntitySet="CVs" />
+      <End Role="CVXAbility" EntitySet="CVXAbilities" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CVXCertificate_CV" Association="Self.FK_CVXCertificate_CV">
+      <End Role="CV" EntitySet="CVs" />
+      <End Role="CVXCertificate" EntitySet="CVXCertificates" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CVXExperience_CV" Association="Self.FK_CVXExperience_CV">
+      <End Role="CV" EntitySet="CVs" />
+      <End Role="CVXExperience" EntitySet="CVXExperiences" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CVXTraining_CV" Association="Self.FK_CVXTraining_CV">
+      <End Role="CV" EntitySet="CVs" />
+      <End Role="CVXTraining" EntitySet="CVXTrainings" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CVXTraining_Training" Association="Self.FK_CVXTraining_Training">
+      <End Role="Training" EntitySet="Trainings" />
+      <End Role="CVXTraining" EntitySet="CVXTrainings" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Employee_Job" Association="Self.FK_Employee_Job">
+      <End Role="Job" EntitySet="Jobs" />
+      <End Role="Employee" EntitySet="Employees" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CVXExperience_Experience" Association="Self.FK_CVXExperience_Experience">
+      <End Role="Experience" EntitySet="Experiences" />
+      <End Role="CVXExperience" EntitySet="CVXExperiences" />
+    </AssociationSet>
+    <AssociationSet Name="AspNetUserRoles" Association="Self.AspNetUserRoles">
+      <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

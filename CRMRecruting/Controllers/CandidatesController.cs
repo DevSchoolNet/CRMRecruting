@@ -30,7 +30,7 @@ namespace CRMRecruting.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Candidate candidate = db.Candidates.Find(id);
+            Candidate candidate = db. Candidates.Find(id);
             if (candidate == null)
             {
                 return HttpNotFound();

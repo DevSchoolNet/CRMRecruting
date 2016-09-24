@@ -1,0 +1,58 @@
+﻿@model CRMRecruting.Models.Candidate
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Candidate</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.University)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.University)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PersonalStatement)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PersonalStatement)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CandidateBill.Id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CandidateBill.Id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Contact.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Contact.Name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
